@@ -10,14 +10,13 @@
   </head>
   <body>
     <div class="container documents">
-      <h1>Soccer Feed :</h1>
       <div ng-app="Ghidorah" ng-controller="FetchController">
         <div class="col-md-12" infinite-scroll="feed.fetch()" infinite-scroll-disabled="feed.wait" infinite-scroll-distance="1">
           <ul class="media-list">
             <li class="media" ng-repeat="item in feed.items" ng-class="item.type">
               <a class="pull-left" href="#">
                 <img class="media-object img-rounded news-img" ng-src="{{item.thumbnail}}">
-                <img class="media-object img-rounded source-img" ng-src="{{getIcon(item.type, item.source)}}">
+                <img class="media-object img-rounded source-img" ng-src="{{getIcon(item.type, item.source)}}" ng-show="item.type == 'live'">
               </a>
               <div class="media-body">
                 <h4 class="media-heading">
@@ -26,7 +25,8 @@
                   </a>
                 </h4>
                 <p>{{getDateTime(item.date)}}</p>
-                <p>{{ truncate(item.description, 200) }}</p>
+                <p ng-show="item.type == 'live'">{{ truncate(item.description, 200) }}</p>
+                <img class="media-object source-img pull-right" ng-src="{{getIcon(item.type, item.source)}}" ng-show="item.type != 'live'">
               </div>
             </li>
             <li ng-show="feed.wait">Loading data...</li>
