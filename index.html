@@ -10,18 +10,16 @@
   </head>
   <body>
     <div class="container documents">
-      <h1>Soccer Feed</h1>
+      <h1>Soccer Feed :</h1>
       <div ng-app="Ghidorah" ng-controller="FetchController">
         <div class="col-md-12" infinite-scroll="feed.fetch()" infinite-scroll-disabled="feed.wait" infinite-scroll-distance="1">
           <ul class="media-list">
             <li class="media" ng-repeat="item in feed.items" ng-class="item.type">
               <a class="pull-left" href="#">
                 <img class="media-object img-rounded news-img" ng-src="{{item.thumbnail}}">
-              </a>
-              <div class="media-body">
-              <a class="pull-right" href="#">
                 <img class="media-object img-rounded source-img" ng-src="{{getIcon(item.type, item.source)}}">
               </a>
+              <div class="media-body">
                 <h4 class="media-heading">
                   <a ng-href="{{item.link}}" target="_blank">
                     {{item.title}}
