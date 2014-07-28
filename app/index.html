@@ -9,15 +9,16 @@
     <link href="css/app.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <div class="container documents">
+    <div class="container">
       <div ng-app="Ghidorah" ng-controller="FetchController">
-        <div class="col-md-12" infinite-scroll="feed.fetch()" infinite-scroll-disabled="feed.wait" infinite-scroll-distance="1">
+        <script type="text/ng-template" id="news-feed">
           <ul class="media-list">
             <li class="media" ng-repeat="item in feed.items" ng-class="item.type">
-              <a class="pull-left" href="#">
-                <img class="media-object img-rounded news-img" ng-src="{{item.thumbnail}}">
-                <img class="media-object img-rounded source-img" ng-src="{{getIcon(item.type, item.source)}}" ng-show="item.type == 'live'">
-              </a>
+              <div class="pull-left img-box" href="#">
+                <img class="media-object img-rounded news-img" ng-src="{{item.thumbnail}}" />
+                <img class="media-object img-rounded news-img" ng-src="{{getIcon(item.type, item.source)}}" ng-show="item.type == 'live'" />
+                <img class="media-object img-rounded news-img" ng-src="{{getDefaultImage()}}" ng-show="item.thumbnail.trim() == '' && item.type != 'live'" />
+              </div>
               <div class="media-body">
                 <h4 class="media-heading">
                   <a ng-href="{{item.link}}" target="_blank">
@@ -25,16 +26,57 @@
                   </a>
                 </h4>
                 <p>{{getDateTime(item.date)}}</p>
-                <p ng-show="item.type == 'live'">{{ truncate(item.description, 200) }}</p>
+                <p class="live-message" ng-show="item.type == 'live'">{{ truncate(item.description, 200) }}</p>
                 <img class="media-object source-img pull-right" ng-src="{{getIcon(item.type, item.source)}}" ng-show="item.type != 'live'">
               </div>
             </li>
-            <li ng-show="feed.wait">Loading data...</li>
-          </ul>        
+            <li ng-show="feed.wait">
+              <div class="loading">
+                <img src="http://res.cloudinary.com/dtmnbo2hw/image/upload/v1406588526/Soccer_ball_wsxsls.gif" />
+              </div>
+            </li>
+          </ul>
+        </script>
+        <ul id="myTab1" class="nav nav-tabs nav-justified">
+          <li class="active"><a href="#all" data-toggle="tab" ng-click="tabClick('all')">All</a></li>
+          <li class=""><a href="#tweets" data-toggle="tab" ng-click="tabClick('tweet')">Tweets</a></li>
+          <li class=""><a href="#news" data-toggle="tab" ng-click="tabClick('news')">News</a></li>
+          <li class=""><a href="#live" data-toggle="tab" ng-click="tabClick('live')">Live</a></li>
+        </ul>  
+        <form ng-submit="filter()">
+          <div class="input-group form-search">
+            <input type="text" class="form-control search-query" ng-model="search" ng-keypress="checkEnter($event)">
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-danger" data-type="last" ng-click="filter()">Search</button>
+            </span>
+          </div>        
+        </form>
+        <div id="content" class="tab-content" infinite-scroll="feed.fetch()" infinite-scroll-disabled="feed.wait" infinite-scroll-distance="1">
+          <div class="tab-pane fade active in" id="all">
+            <div class="col-md-12" >
+              <ng-include src="'news-feed'"></ng-include>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="tweets">
+            <div class="col-md-12">
+              <ng-include src="'news-feed'"></ng-include>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="news">
+            <div class="col-md-12">
+              <ng-include src="'news-feed'"></ng-include>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="live">
+            <div class="col-md-12">
+              <ng-include src="'news-feed'"></ng-include>
+            </div>
+          </div>
         </div>
       </div>
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/app.min.js" ></script>
+
   </body>
 </html>
