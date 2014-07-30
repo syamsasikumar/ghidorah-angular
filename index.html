@@ -28,6 +28,7 @@
                 <p>{{getDateTime(item.date)}}</p>
                 <p class="live-message" ng-show="item.type == 'live'">{{ truncate(item.description, 200) }}</p>
                 <img class="media-object source-img pull-right" ng-src="{{getIcon(item.type, item.source)}}" ng-show="item.type != 'live'">
+                <div class="live-text pull-right" ng-show="item.type == 'live'">LIVE</div>
               </div>
             </li>
             <li ng-show="feed.wait">
