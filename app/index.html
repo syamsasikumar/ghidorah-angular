@@ -17,7 +17,7 @@
               <div class="pull-left img-box" href="#">
                 <img class="media-object img-rounded news-img" ng-src="{{item.thumbnail}}" />
                 <img class="media-object img-rounded news-img" ng-src="{{getIcon(item.type, item.source)}}" ng-show="item.type == 'live'" />
-                <img class="media-object img-rounded news-img" ng-src="{{getDefaultImage()}}" ng-show="item.thumbnail.trim() == '' && item.type != 'live'" />
+                <img class="media-object img-rounded news-img" ng-src="{{defaultImage}}" ng-show="item.thumbnail.trim() == '' && item.type != 'live'" />
               </div>
               <div class="media-body">
                 <h4 class="media-heading">
@@ -32,7 +32,7 @@
             </li>
             <li ng-show="feed.wait">
               <div class="loading">
-                <img src="http://res.cloudinary.com/dtmnbo2hw/image/upload/v1406588526/Soccer_ball_wsxsls.gif" />
+                <img ng-src="{{loadingImg}}" />
               </div>
             </li>
           </ul>
@@ -44,10 +44,10 @@
           <li class=""><a href="#live" data-toggle="tab" ng-click="tabClick('live')">Live</a></li>
         </ul>  
         <form ng-submit="filter()">
-          <div class="input-group form-search">
-            <input type="text" class="form-control search-query" ng-model="search" ng-keypress="checkEnter($event)">
+          <div class="input-group search-box">
+            <input type="text" class="form-control search-query" ng-model="search" />
             <span class="input-group-btn">
-              <button type="submit" class="btn btn-danger" data-type="last" ng-click="filter()">Search</button>
+              <button type="submit" class="btn btn-danger" ng-click="filter()">Search</button>
             </span>
           </div>        
         </form>
