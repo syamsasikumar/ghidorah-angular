@@ -1,4 +1,4 @@
-![Ghidorah](http://res.cloudinary.com/dtmnbo2hw/image/upload/v1406761413/ghidorah_khijyl.jpg)
+![Ghidorah](http://res.cloudinary.com/dtmnbo2hw/image/upload/c_scale,h_181/v1406761413/ghidorah_khijyl.jpg)
 
 Ghidorah is an angular app listing latest soccer news data. 
 
